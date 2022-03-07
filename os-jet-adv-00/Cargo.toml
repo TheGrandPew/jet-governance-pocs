@@ -1,0 +1,18 @@
+[package]
+name = "jet-staking-tests"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+poc-framework = "0.1.4"
+bs58 = "*"
+base64 = "*"
+spl-token = "*"
+anchor-client = { git = "https://github.com/jet-lab/anchor" }
+anchor-lang = { git = "https://github.com/jet-lab/anchor" }
+anchor-spl = { git = "https://github.com/jet-lab/anchor" }
+jet-proto-staking = {path="./build/jet-governance/programs/staking"}
+jet-proto-rewards = {path="./build/jet-governance/programs/rewards"}
+jet-proto-auth = {path="./build/jet-governance/programs/auth"}

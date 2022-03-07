@@ -1,0 +1,72 @@
+diff --git a/programs/rewards/src/instructions/award_create.rs b/programs/rewards/src/instructions/award_create.rs
+index 2c3f11e..11fec26 100644
+--- a/programs/rewards/src/instructions/award_create.rs
++++ b/programs/rewards/src/instructions/award_create.rs
+@@ -1,5 +1,6 @@
+ use anchor_lang::prelude::*;
+ use anchor_spl::token::{self, Token, TokenAccount, Transfer};
++use std::io::Write;
+ 
+ use crate::state::*;
+ 
+@@ -87,7 +88,8 @@ pub fn award_create_handler(ctx: Context<AwardCreate>, params: AwardCreateParams
+     let award = &mut ctx.accounts.award;
+ 
+     award.authority = params.authority;
+-    award.seed = params.seed;
++    award.seed_len = params.seed.len() as u8;
++    award.seed.as_mut().write(params.seed.as_bytes())?;
+     award.bump_seed[0] = *ctx.bumps.get("award").unwrap();
+ 
+     award.stake_account = params.stake_account;
+diff --git a/programs/rewards/src/state/award.rs b/programs/rewards/src/state/award.rs
+index 16f1fb5..1588611 100644
+--- a/programs/rewards/src/state/award.rs
++++ b/programs/rewards/src/state/award.rs
+@@ -9,7 +9,10 @@ pub struct Award {
+     pub authority: Pubkey,
+ 
+     /// The seed for the address
+-    pub seed: String,
++    pub seed: [u8; 30],
++
++    /// The length of the seed string
++    pub seed_len: u8,
+ 
+     /// The bump seed for the address
+     pub bump_seed: [u8; 1],
+@@ -28,7 +31,7 @@ impl Award {
+     pub fn signer_seeds(&self) -> [&[u8]; 3] {
+         [
+             self.stake_account.as_ref(),
+-            self.seed.as_bytes(),
++            &self.seed[..self.seed_len as usize],
+             self.bump_seed.as_ref(),
+         ]
+     }
+diff --git a/programs/staking/src/instructions/init_pool.rs b/programs/staking/src/instructions/init_pool.rs
+index 2f93dfb..8c0b7f6 100644
+--- a/programs/staking/src/instructions/init_pool.rs
++++ b/programs/staking/src/instructions/init_pool.rs
+@@ -11,7 +11,7 @@ pub struct PoolConfig {
+     /// The time period for unbonding staked tokens from the pool.
+     ///
+     /// Unit is seconds.
+-    unbond_period: u64,
++    pub unbond_period: u64,
+ }
+ 
+ #[derive(Accounts)]
+diff --git a/programs/staking/src/lib.rs b/programs/staking/src/lib.rs
+index 222b162..34b698d 100644
+--- a/programs/staking/src/lib.rs
++++ b/programs/staking/src/lib.rs
+@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
+ 
+ declare_id!("JPLockxtkngHkaQT5AuRYow3HyUv5qWzmhwsCPd653n");
+ 
+-mod instructions;
++pub mod instructions;
+ pub mod state;
+ 
+ use instructions::*;
