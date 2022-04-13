@@ -1,6 +1,6 @@
 # Jet Governance POCs
 
-Proof of concepts for the jet governance audit.
+Proof of concepts for our audit of Jet Protocol's [governance program](https://github.com/jet-lab/jet-governance/blob/master/reports/jet-governance-audit-public.pdf).
 
 To run a POC:
 ```
