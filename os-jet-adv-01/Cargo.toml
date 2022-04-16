@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-poc-framework = "0.1.4"
+poc-framework-osec = "*"
 bs58 = "*"
 base64 = "*"
 spl-token = "*"

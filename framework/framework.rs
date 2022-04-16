@@ -13,7 +13,7 @@ use jet_staking::{
     accounts::{AddStake, InitPool, InitStakeAccount},
     Amount,
 };
-use poc_framework::{
+use poc_framework_osec::{
     solana_sdk::{pubkey::Pubkey, signature::Keypair, signer::Signer},
     solana_transaction_status::EncodedConfirmedTransaction,
     Environment, LocalEnvironment,

@@ -7,7 +7,7 @@ use anchor_client::solana_sdk::program_pack::Pack;
 use anchor_lang::AccountDeserialize;
 
 use jet_staking::Amount;
-use poc_framework::{solana_sdk::signer::Signer, Environment};
+use poc_framework_osec::{solana_sdk::signer::Signer, Environment};
 
 fn main() -> Result<(), Box<dyn Error>> {
     steal_stake()?;

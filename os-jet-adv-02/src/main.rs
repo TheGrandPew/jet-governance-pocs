@@ -3,7 +3,7 @@ use anchor_spl::associated_token::get_associated_token_address;
 use framework::{clone_keypair, get_balance, Framework};
 use std::error::Error;
 
-use poc_framework::{solana_sdk::signer::Signer, Environment};
+use poc_framework_osec::{solana_sdk::signer::Signer, Environment};
 
 fn main() -> Result<(), Box<dyn Error>> {
     hedge_rate_increase()?;

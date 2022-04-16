@@ -9,7 +9,7 @@ use anchor_lang::{
     solana_program,
 };
 
-use poc_framework::Environment;
+use poc_framework_osec::Environment;
 
 fn main() -> Result<(), Box<dyn Error>> {
     dos()?;

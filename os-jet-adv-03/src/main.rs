@@ -8,7 +8,7 @@ use std::error::Error;
 
 use anchor_client::solana_sdk::{signature::Keypair, signer::Signer};
 
-use poc_framework::Environment;
+use poc_framework_osec::Environment;
 
 fn main() -> Result<(), Box<dyn Error>> {
     airdrop_double_claim()?;
